@@ -1,0 +1,38 @@
+#-------------------------------------------
+# Author:   Marco Boschini
+# Email:    marco@corsimikrotik.it
+# Website:  https://corsimikrotik.it
+# Version:  1.0
+# Data:     2024-01-26
+#-------------------------------------------
+
+#insert your Bot
+:global telegramBot "1000000000:Axxxxxxxxxxxxxxxxxxxxx"
+
+#insert your ChatID
+:global telegramChatID "-590000000" 
+
+#link unicode example
+#https://apps.timwhitlock.info/emoji/tables/unicode
+	
+#----------------------------------------------------------
+# telegram message sending function
+#----------------------------------------------------------
+:local sendTelegram do={
+
+    :global telegramBot
+    :global telegramChatID
+    :local parseMode "html"
+
+    :local requestUrl "https://api.telegram.org/bot$telegramBot/sendMessage";
+    :local httpData "{\"chat_id\": \"$telegramChatID\", \"text\": \"$textMessage\", \"parse_mode\": \"html\"}";
+    
+	/tool fetch url=$requestUrl http-data=$httpData http-method=post http-header-field=content-type:application/json keep-result=no
+
+} 
+#----------------------------------------------------------
+
+#Text with emoji faca and Italian Flag
+:local MessageText "Hi Marco Boschini! 	\F0\9F\98\84 \F0\9F\87\AE\F0\9F\87\B9";
+
+$sendTelegram textMessage=$MessageText
